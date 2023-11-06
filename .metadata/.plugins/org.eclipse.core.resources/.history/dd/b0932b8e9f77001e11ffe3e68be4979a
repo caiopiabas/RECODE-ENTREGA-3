@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="connection.ConnectionMySQL" %>
+<%@ page import="java.sql.*" %>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Processamento de Cadastro de Usuário</title>
+</head>
+<body>
+    <%
+        // Recupera dados do formulário
+        String nome = request.getParameter("nome");
+        String cpf = request.getParameter("cpf");
+        String email = request.getParameter("email");
+
+        Connection connection = null;
+        try {
+            // Cria uma conexão com o banco de dados
+            connection = ConnectionMySQL.createConnectionMySQL();
+
+            // Inserir os dados no banco de dados
+            String insertQuery = "INSERT INTO usuarios (nome, cpf, email) VALUES (?, ?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+            preparedStatement.setString(1, nome);
+            preparedStatement.setString(2, cpf);
+            preparedStatement.setString(3, email);
+            preparedStatement.executeUpdate();
+
+            // Redirecionar de volta para a página de cadastro com uma mensagem de sucesso
+            response.sendRedirect("cadastro.jsp?success=true");
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Trate erros aqui, redirecione para uma página de erro, etc.
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    %>
+</body>
+</html>

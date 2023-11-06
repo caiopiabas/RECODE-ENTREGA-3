@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pacotes de Viagens</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+	<!-- Menu principal -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 80px;">
+		<div class="container">
+			<a class="navbar-brand" href="#">
+				<img src="./assets/images/logo.gif" alt="logo" class="img-fluid" width="100" height="80">
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" aria-current="page" href="index.html">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" href="destino.html">Destino</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="promocoes.html">Promoções</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="contato.html">Contato</a>
+					</li>
+				</ul>
+
+				<div class="d-flex">
+
+					<a href="./usuario">
+						<button type="button" class="btn btn-primary me-2">Usuarios</button>
+					</a>
+
+
+					<a href="./pacotesviagem">
+						<button type="button" class="btn btn-primary me-2">Pacotes</button>
+					</a>
+
+					<a href="./pedido">
+						<button type="button" class="btn btn-primary me-2">Pedidos</button>
+					</a>
+
+				</div>
+
+				</form>
+			</div>
+		</div>
+	</nav>
+
+
+	<!-- Cabeçalho -->
+	<header class="container my-4">
+		<h2 class="text-center text-md-start">Pacotes de Viagens</h2>
+		<p class="lead text-muted text-center text-md-start">A melhor viagem você encontra aqui, destinos inspiradores
+			ao seu alcance</p>
+	</header>
+
+	<!-- Pacotes disponíveis -->
+	<main>
+		<div class="container" id="pacotes">
+			<h3 class="pacotes-tittle text-center">Pacotes disponíveis</h3>
+			<div class="row">
+
+				<!-- Card 1: Egito -->
+
+				<div class="card m-3 p-0" style="width: 18rem;">
+					<img src="./assets/images/Egito-1.png" class="card-img-top" alt="Egito">
+					<div class="card-body">
+						<h5 class="card-title">Egito</h5>
+						<p class="card-text">Pacote 5 noites Egito Hotel</p>
+						<p class="card-text">R$ 12.355 ou 10x 1.300</p>
+						<ul>
+							<li><i class="bi bi-cup-hot text-primary ms-3" style="font-size:1rem"></i> Café da manhã
+								incluso</li>
+							<li><i class="bi bi-wifi text-primary ms-3" style="font-size:1rem"></i> Wifi</li>
+							<li><i class="bi bi-check2-square text-primary ms-3" style="font-size:1rem"></i> Check in
+								até as 12h</li>
+						</ul>
+						<br>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">
+							Comprar
+						</button>
+					</div>
+				</div>
+
+
+				<!-- Card 2: Barcelona -->
+
+				<div class="card m-3 p-0" style="width: 18rem;">
+					<img src="./assets/images/barcelona.jpg" class="card-img-top" alt="Barcelona">
+					<div class="card-body">
+						<h5 class="card-title">Barcelona</h5>
+						<p class="card-text">Pacote 3 noites Resort Milão</p>
+						<p class="card-text">R$ 8.950 ou 10x 935</p>
+						<ul>
+							<li><i class="bi bi-cup-hot text-primary ms-3" style="font-size:1rem"></i> Café da manhã
+								incluso</li>
+							<li><i class="bi bi-wifi text-primary ms-3" style="font-size:1rem"></i> Wifi</li>
+							<li><i class="bi bi-check2-square text-primary ms-3" style="font-size:1rem"></i>Check in
+								até as 12h</li>
+						</ul>
+						<br>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">
+							Comprar
+						</button>
+
+					</div>
+				</div>
+
+
+				<!-- Card 3: Orlando Disney -->
+
+				<div class="card m-3 p-0" style="width: 18rem;">
+					<img src="./assets/images/dysney.png" class="card-img-top" alt="Disney">
+					<div class="card-body">
+						<h5 class="card-title">Orlando Disney</h5>
+						<p class="card-text">Pacote 5 noites Orlando Resorts</p>
+						<p class="card-text">R$ 9.230 ou 10x 1.000</p>
+						<ul>
+							<li><i class="bi bi-cup-hot text-primary ms-3" style="font-size:1rem"></i> Café da
+								manhã
+								incluso</li>
+							<li><i class="bi bi-wifi text-primary ms-3" style="font-size:1rem"></i> Wifi</li>
+							<li><i class="bi bi-check2-square text-primary ms-3" style="font-size:1rem"></i>Check in
+								até as 12h</li>
+						</ul>
+						<br>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">
+							Comprar
+						</button>
+					</div>
+				</div>
+
+
+				<!-- Card 4: Lisboa -->
+
+				<div class="card m-3 p-0" style="width: 18rem;">
+					<img src="./assets/images/lisboa1.jpg" class="card-img-top" alt="Lisboa">
+					<div class="card-body">
+						<h5 class="card-title">Lisboa</h5>
+						<p class="card-text">Pacote 6 noites LisbornHotel</p>
+						<p class="card-text">R$ 8.230 ou 10x 900</p>
+						<ul>
+							<li><i class="bi bi-cup-hot text-primary ms-3" style="font-size:1rem"></i> Café da manhã
+								incluso</li>
+							<li><i class="bi bi-wifi text-primary ms-3" style="font-size:1rem"></i> Wifi</li>
+							<li><i class="bi bi-check2-square text-primary ms-3" style="font-size:1rem"></i> Check in
+								até as 12h</li>
+						</ul>
+						<br>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">
+							Comprar
+						</button>
+					</div>
+				</div>
+
+
+				<!-- Card 5: Paris -->
+
+				<div class="card m-3 p-0" style="width: 18rem;">
+					<img src="./assets/images/frança.jpg" class="card-img-top" alt="Paris">
+					<div class="card-body">
+						<h5 class="card-title">Paris</h5>
+						<p class="card-text">Pacote 5 noites Generator Paris</p>
+						<p class="card-text">R$ 10.230 ou 10x 1.340</p>
+						<ul>
+							<li><i class="bi bi-cup-hot text-primary ms-3" style="font-size:1rem"></i> Café da manhã
+								incluso</li>
+							<li><i class="bi bi-wifi text-primary ms-3" style="font-size:1rem"></i> Wifi</li>
+							<li><i class="bi bi-check2-square text-primary ms-3" style="font-size:1rem"></i> Check in
+								até as 12h</li>
+						</ul>
+						<br>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">
+							Comprar
+						</button>
+					</div>
+				</div>
+
+
+				<!-- Card 6: Londres -->
+
+				<div class="card m-3 p-0" style="width: 18rem;">
+					<img src="./assets/images/Londres.jpeg" class="card-img-top" alt="Londres">
+					<div class="card-body">
+						<h5 class="card-title">Londres</h5>
+						<p class="card-text">Pacote 4 noites Britannia London</p>
+						<p class="card-text">R$ 8.000 ou 10x 867</p>
+						<ul>
+							<li><i class="bi bi-cup-hot text-primary ms-3" style="font-size:1rem"></i> Café da manhã
+								incluso</li>
+							<li><i class="bi bi-wifi text-primary ms-3" style="font-size:1rem"></i> Wifi</li>
+							<li><i class="bi bi-check2-square text-primary ms-3" style="font-size:1rem"></i> Check in
+								até as 12h</li>
+						</ul>
+						<br>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">
+							Comprar
+						</button>
+					</div>
+				</div>
+
+
+				<!-- Card 7: Maragogi -->
+
+				<div class="card m-3 p-0" style="width: 18rem;">
+					<img src="./assets/images/natal.jpg" class="card-img-top" alt="Maragogi">
+					<div class="card-body">
+						<h5 class="card-title">Maragogi</h5>
+						<p class="card-text">Pacote 5 noites Resort Salinas</p>
+						<p class="card-text">R$ 7.158 ou 10x 795</p>
+						<ul>
+							<li><i class="bi bi-cup-hot text-primary ms-3" style="font-size:1rem"></i> Café da manhã
+								incluso</li>
+							<li><i class="bi bi-wifi text-primary ms-3" style="font-size:1rem"></i> Wifi</li>
+							<li><i class="bi bi-check2-square text-primary ms-3" style="font-size:1rem"></i> Check in
+								até as 12h</li>
+						</ul>
+						<br>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">
+							Comprar
+						</button>
+					</div>
+				</div>
+
+
+				<!-- Card 8: Montevidéu -->
+
+				<div class="card m-3 p-0" style="width: 18rem;">
+					<img src="./assets/images/montvideo.jpg" class="card-img-top" alt="Montevidéu">
+					<div class="card-body">
+						<h5 class="card-title">Montevidéu</h5>
+						<p class="card-text">Pacote 7 noites Sofitel Montevidéu</p>
+						<p class="card-text">R$ 8.923 ou 10x958</p>
+						<ul>
+							<li><i class="bi bi-cup-hot text-primary ms-3" style="font-size:1rem"></i> Café da manhã
+								incluso</li>
+							<li><i class="bi bi-wifi text-primary ms-3" style="font-size:1rem"></i> Wifi</li>
+							<li><i class="bi bi-check2-square text-primary ms-3" style="font-size:1rem"></i> Check in
+								até as 12h</li>
+						</ul>
+						<br>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalPagamento">
+							Comprar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modal -->
+		<div class="modal fade" id="modalPagamento" tabindex="-1" role="dialog" aria-labelledby="modalPagamentoLabel"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalPagamentoLabel">Pedido</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+
+						<!--Especificações do formulario de pagamento -->
+						<form>
+
+							<div class="form-group">
+
+
+								<div class="mb-3">
+									<label for="festa">Escolha a sua data preferida para viagem:</label>
+									<input type="date" id="viagem" name="viagem" min="2023-08-01" max="2023-12-31">
+								</div>
+
+								<div class="mb-3">
+									<label for="cpf">CPF:</label>
+									<input type="text" class="form-control" id="cpf" placeholder="CPF">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+								<button type="button" class="btn btn-primary">Gerar Pedido</button>
+							</div>
+					</div>
+				</div>
+			</div>
+
+	</main>
+
+
+	<!-- Rodapé -->
+	<footer class="mt-4 bg-primary text-center text-white p-1">
+		<p><i class="bi bi-c-circle" style="font-size:1rem"></i> Todos os direitos reservados a agência de viagens
+			Giramundo.</p>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-mBoG6D6nY7iZ/P5B1fVplGx4rqqN2GZbbFqN2zT5jrtXLHz7l9p6ZSgxCqzR4HVA"
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

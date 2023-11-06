@@ -1,0 +1,143 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page
+	import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.ResultSet, java.sql.SQLException"%>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cadastro de Usuário</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+	<!-- Barra de Navegação -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light"
+		style="height: 80px;">
+		<div class="container">
+			<a class="navbar-brand" href="#"> <img
+				src="./assets/images/logo.gif" alt="logo" class="img-fluid"
+				width="100" height="80">
+			</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" aria-current="page"
+						href="index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="destino.html">Destino</a></li>
+					<li class="nav-item"><a class="nav-link" href="promocoes.html">Promoções</a></li>
+					<li class="nav-item"><a class="nav-link" href="contato.html">Contato</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container mt-5 form-container">
+		<div class="row">
+			<div class="col-md-6 form-bg">
+				<div class="border p-4 rounded">
+					<h2 class="text-center mb-4">Cadastro de Usuário</h2>
+					<form action="cadastro-usuarios.jsp?action=user" method="post">
+						<div class="form-group">
+							<label for="nome">Nome:</label> <input type="text"
+								class="form-control" id="nome" name="nome" placeholder="Nome">
+						</div>
+						<div class="form-group">
+							<label for="email">Email:</label> <input type="email"
+								class="form-control" id="email" name="email" placeholder="Email">
+						</div>
+						<div class="form-group">
+							<label for="cpf">CPF:</label> <input type="text"
+								class="form-control" id="cpf" name="cpf" placeholder="CPF">
+						</div>
+						<button type="submit" class="btn btn-primary mt-4">Cadastrar</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="col-md-6 form-bg">
+				<h2>Usuários Cadastrados</h2>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Nome</th>
+							<th>Email</th>
+							<th>Ações</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%
+                        Connection listConnection = null;
+                        PreparedStatement listStatement = null;
+                        ResultSet resultSet = null;
+
+                        try {
+                            Class.forName("com.mysql.cj.jdbc.Driver");
+                            listConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenciadeviagem3");
+
+                            String listSql = "SELECT * FROM usuarios";
+                            listStatement = listConnection.prepareStatement(listSql);
+                            resultSet = listStatement.executeQuery();
+
+                            while (resultSet.next()) {
+                                String userId = resultSet.getString("id");
+                                String userName = resultSet.getString("nome");
+                                String userEmail = resultSet.getString("email");
+                        %>
+						<tr>
+							<td><%= userName %></td>
+							<td><%= userEmail %></td>
+							<td><a
+								href="cadastro-usuarios.jsp?action=edit&id=<%= userId %>"
+								class="btn btn-primary">Editar</a> <a
+								href="cadastro-usuarios.jsp?action=delete&id=<%= userId %>"
+								class="btn btn-danger">Excluir</a></td>
+						</tr>
+						<%
+                            }
+                        } catch (ClassNotFoundException | SQLException e) {
+                            out.println("Erro ao listar usuários: " + e.getMessage());
+                        } finally {
+                            if (resultSet != null) {
+                                resultSet.close();
+                            }
+                            if (listStatement != null) {
+                                listStatement.close();
+                            }
+                            if (listConnection != null) {
+                                listConnection.close();
+                            }
+                        }
+                        %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Rodapé -->
+	<footer class="bg-primary text-center text-white p-1 mt-4">
+		<p>
+			<i class="bi bi-c-circle" style="font-size: 1rem"></i> Todos os
+			direitos reservados à agência de viagens Giramundo.
+		</p>
+	</footer>
+
+	<!-- Scripts JavaScript do Bootstrap -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

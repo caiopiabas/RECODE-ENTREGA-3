@@ -1,0 +1,88 @@
+package controller;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dao.PacotesViagemDAO;
+import dao.PedidoDAO;
+import dao.UsuarioDAO;
+import modelos.PacotesViagem;
+import modelos.Pedido;
+import modelos.Usuario;
+
+@WebServlet(urlPatterns = { "/pedido", "/pedido-save", "/pedido-delete" })
+public class PedidoController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	PedidoDAO pdao = new PedidoDAO();
+	UsuarioDAO udao = new UsuarioDAO();
+	PacotesViagemDAO pvdao = new PacotesViagemDAO();
+	public PedidoController() {
+		super();
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String route = request.getServletPath();
+		List<Usuario> usuarios = udao.listarTodosUsuarios();
+		List<PacotesViagem> pacotes = pvdao.listarPacotesViagem();
+		request.setAttribute("pacotes", pacotes);
+		request.setAttribute("usuarios", usuarios);
+		switch (route) {
+		case "/pedido":
+			read(request, response);
+			break;
+		case "/pedido-save":
+			save(request, response);
+			break;
+		case "/pedido-delete":
+			delete(request, response);
+			break;
+		default:
+			response.sendRedirect("/AgenciaViagem3/index.html");
+			break;
+		}
+	}
+
+	protected void read(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Pedido> pedidos = pdao.listarPedidos();
+		request.setAttribute("pedidos", pedidos);
+		RequestDispatcher rd = request.getRequestDispatcher("./pedido.jsp");
+		rd.forward(request, response);
+	}
+
+	protected void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Pedido pedido = new Pedido();
+		if (request.getParameter("id") != null) {
+			pedido.setId(Integer.parseInt(request.getParameter("id")));
+		}
+		int idusuario=Integer.parseInt(request.getParameter("usuario"));
+		int idpacote=Integer.parseInt(request.getParameter("pacote"));
+		pedido.setUsuario(udao.buscarUsuarioPorId(idusuario));
+		pedido.setPacote(pvdao.buscarPorId(idpacote));
+		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
+		String data=request.getParameter("data");
+		try {
+			pedido.setDataCompra(sdf.parse(data));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		pdao.salvarPedido(pedido);
+		response.sendRedirect("/pedido");
+	}
+
+	protected void delete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		pdao.excluirPedido(id);
+		response.sendRedirect("/pedido");
+	}
+}

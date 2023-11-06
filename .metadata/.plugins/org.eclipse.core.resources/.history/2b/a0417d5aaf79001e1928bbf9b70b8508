@@ -1,0 +1,98 @@
+package controller;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import connection.ConnectionMySQL;
+import dao.PacotesViagemDAO;
+import modelos.PacotesViagem;
+
+@WebServlet(urlPatterns = "/pacotes")
+public class PacoteViagemServlet extends HttpServlet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	
+		try (Connection conexao = ConnectionMySQL.createConnectionMySQL()) {
+			PacotesViagemDAO pacotesViagemDAO = new PacotesViagemDAO(conexao);
+			List<PacotesViagem> pacotesViagem = pacotesViagemDAO.listarPacotesViagem();
+			request.setAttribute("pacotesViagem", pacotesViagem);
+			request.getRequestDispatcher("listagem.jsp").forward(request, response);
+		} catch (SQLException e) {
+			System.out.println(e);
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro no servidor: " + e.getMessage());
+		}
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try (Connection conexao = ConnectionMySQL.createConnectionMySQL()) {
+			PacotesViagemDAO pacotesViagemDAO = new PacotesViagemDAO(conexao);
+
+			String nomeDoPacote = request.getParameter("nomeDoPacote");
+			String descricao = request.getParameter("descricao");
+			String destino = request.getParameter("destino");
+			float preco = Float.parseFloat(request.getParameter("preco"));
+			Date dataDePartida = Date.valueOf(request.getParameter("dataDePartida"));
+			int duracao = Integer.parseInt(request.getParameter("duracao"));
+
+			PacotesViagem novoPacote = new PacotesViagem(duracao, nomeDoPacote, descricao, destino, preco,
+					dataDePartida, duracao);
+			pacotesViagemDAO.inserirPacoteViagem(novoPacote);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro no servidor: " + e.getMessage());
+		}
+	}
+
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try (Connection conexao = ConnectionMySQL.createConnectionMySQL()) {
+			PacotesViagemDAO pacotesViagemDAO = new PacotesViagemDAO(conexao);
+
+			int id = Integer.parseInt(request.getParameter("id"));
+			String novoNomeDoPacote = request.getParameter("novoNomeDoPacote");
+
+			PacotesViagem pacoteExistente = pacotesViagemDAO.buscarPorId(id);
+			if (pacoteExistente != null) {
+				pacoteExistente.setNomeDoPacote(novoNomeDoPacote);
+				// Atualize outros campos conforme necessário
+				pacotesViagemDAO.atualizarPacoteViagem(pacoteExistente);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro no servidor: " + e.getMessage());
+		}
+	}
+
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try (Connection conexao = ConnectionMySQL.createConnectionMySQL()) {
+			PacotesViagemDAO pacotesViagemDAO = new PacotesViagemDAO(conexao);
+
+			int id = Integer.parseInt(request.getParameter("id"));
+
+			PacotesViagem pacoteExistente = pacotesViagemDAO.buscarPorId(id);
+			if (pacoteExistente != null) {
+				pacotesViagemDAO.excluirPacoteViagem(id);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Erro no servidor: " + e.getMessage());
+		}
+	}
+}

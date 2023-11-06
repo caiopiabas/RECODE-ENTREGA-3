@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.SQLException" %>
+
+<%
+String action = request.getParameter("action");
+
+if (action != null && action.equals("user")) {
+    String nome = request.getParameter("nome");
+    String email = request.getParameter("email");
+    String cpf = request.getParameter("cpf");
+
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/localhost:3306/agenciadeviagem3");
+
+        String sql = "INSERT INTO tabela_usuario (nome, email, cpf) VALUES (?, ?, ?)";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, nome);
+        preparedStatement.setString(2, email);
+        preparedStatement.setString(3, cpf);
+        preparedStatement.executeUpdate();
+
+        response.sendRedirect("cadastro.jsp"); // Redirecionar para a página inicial após o cadastro
+    } catch (ClassNotFoundException | SQLException e) {
+        out.println("Erro ao inserir dados de usuário: " + e.getMessage());
+    } finally {
+        if (preparedStatement != null) {
+            preparedStatement.close();
+        }
+        if (connection != null) {
+            connection.close();
+        }
+    }
+}
+%>

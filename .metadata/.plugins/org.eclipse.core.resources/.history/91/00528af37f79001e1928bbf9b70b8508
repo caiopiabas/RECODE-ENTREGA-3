@@ -1,0 +1,67 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.Connection, java.sql.DriverManager, java.sql.PreparedStatement, java.sql.SQLException" %>
+
+<%
+String action = request.getParameter("action");
+if (action != null && action.equals("user")) {
+    String nome = request.getParameter("nome");
+    String cpf = request.getParameter("cpf");
+    String email = request.getParameter("email");
+
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenciadeviagem3", "root", "123456");
+
+        String sql = "INSERT INTO tabela_usuario (nome, cpf, email) VALUES (?, ?, ?)";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, nome);
+        preparedStatement.setString(2, cpf);
+        preparedStatement.setString(3, email);
+        preparedStatement.executeUpdate();
+
+        out.println("Dados de usuário inseridos com sucesso.");
+    } catch (ClassNotFoundException | SQLException e) {
+        out.println("Erro ao inserir dados de usuário: " + e.getMessage());
+    } finally {
+        if (preparedStatement != null) {
+            preparedStatement.close();
+        }
+        if (connection != null) {
+            connection.close();
+        }
+    }
+} else if (action != null && action.equals("destination")) {
+    String nomePacote = request.getParameter("nomePacote");
+    String destino = request.getParameter("destino");
+    String preco = request.getParameter("preco");
+
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenciadeviagem3", "root", "123456");
+
+        String sql = "INSERT INTO tabela_destino (nome_pacote, destino, preco) VALUES (?, ?, ?)";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, nomePacote);
+        preparedStatement.setString(2, destino);
+        preparedStatement.setString(3, preco);
+        preparedStatement.executeUpdate();
+
+        out.println("Dados de destino inseridos com sucesso.");
+    } catch (ClassNotFoundException | SQLException e) {
+        out.println("Erro ao inserir dados de destino: " + e.getMessage());
+    } finally {
+        if (preparedStatement != null) {
+            preparedStatement.close();
+        }
+        if (connection != null) {
+            connection.close();
+        }
+    }
+}
+%>
